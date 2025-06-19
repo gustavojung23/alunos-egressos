@@ -51,7 +51,12 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 5. Executar a aplicação
+### 5. Execute o Banco de Dados
+```bash
+python init_db.py
+```
+
+### 6. Executar a aplicação
 ```bash
 python app.py
 ```
