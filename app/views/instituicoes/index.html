@@ -5,8 +5,43 @@
 {% block content %}
 <div class="container text-center mt-4">
     <h2>Todas as Instituições</h2>
-    {% for institution in institutions %}
-        <p>{{ institution.nome }} | {{ institution.razao_social }}</p>
-    {% endfor %}
+
+    {% with messages = get_flashed_messages(category_filter=["success"]) %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Razão Social</th>
+                <th scope="col">Acões</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for institution in institutions %}
+                <tr>
+                    <th scope="row">{{ institution.id }}</th>
+                    <td>{{ institution.nome }}</td>
+                    <td>{{ institution.razao_social }}</td>
+                    <td class="d-grid d-lg-flex gap-1 gap-lg-0 align-items-lg-center justify-content-lg-center">
+                        <a class="btn btn-info mx-lg-2" href="{{ url_for('instituicao.update', id=institution.id) }}">Editar</a>
+                        <form method="POST" action="{{ url_for('instituicao.delete', id=institution.id) }}" onsubmit="return confirm('Deseja deletar?')">
+                            <button class="btn btn-danger" type="submit">
+                                Deletar
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}

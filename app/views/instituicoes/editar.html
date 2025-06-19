@@ -1,10 +1,8 @@
 {% extends 'base.html' %}
-
-{% block title %}Cadastrar Instituição{% endblock %}
-
+{% block title %}Editar Instituição{% endblock %}
 {% block content %}
 <div class="container text-center mt-4">
-    <h2>Cadastrar nova Instituição</h2>
+    <h2>Editar nova Instituição</h2>
 
     <!-- Exibe mensagem de erro caso não preencha algum dos inputs -->
     {% with messages = get_flashed_messages(category_filter=["error"]) %}
@@ -19,15 +17,15 @@
 
     <form method="POST">
         <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome">
+            <input type="text" class="form-control" id="nome" name="nome" value="{{ instituicao.nome }}" placeholder="Nome">
             <label for="nome">Nome Instituição</label>
         </div>
         <div class="form-floating">
-            <input type="text" class="form-control" id="razao_social" name="razao_social" placeholder="Razão Social">
+            <input type="text" class="form-control" id="razao_social" name="razao_social" value="{{ instituicao.razao_social }}" placeholder="Razão Social">
             <label for="razao_social">Razão Social</label>
         </div>
 
-        <button type="submit" class="btn btn-lg btn-success mt-5">Cadastrar</button>
+        <button type="submit" class="btn btn-lg btn-success mt-5">Salvar</button>
     </form>
 </div>
 {% endblock %}
