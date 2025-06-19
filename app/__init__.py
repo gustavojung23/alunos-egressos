@@ -1,7 +1,7 @@
 import os
 from db import get_connection
 from flask import Flask, render_template
-##from controllers.instituicoes_controller import institution_bp
+from app.controllers.instituicoes_controller import institution_bp
 
 
 def create_app():
@@ -12,7 +12,7 @@ def create_app():
     with get_connection() as conn:
         conn.execute('PRAGMA journal_mode=WAL;')
 
-    ##app.register_blueprint(institution_bp)
+    app.register_blueprint(institution_bp)
 
     @app.route('/')
     def index():
