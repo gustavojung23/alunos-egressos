@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from app.models.instituicoes_model import Institution
-from app.repositories.instituicoes_repository import InstitutionRepository
+from models.instituicoes_model import Institution
+from repositories.instituicoes_repository import InstitutionRepository
 
 # Encapsulamento de rotas - Instituição
 institution_bp = Blueprint('instituicao', __name__, url_prefix='/instituicoes')
