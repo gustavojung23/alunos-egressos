@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from models.instituicoes_model import Institution
-from repositories.instituicoes_repository import InstitutionRepository
+from app.models.instituicoes_model import Institution
+from app.repositories.instituicoes_repository import InstitutionRepository
 
 # Encapsulamento de rotas - Instituição
 institution_bp = Blueprint('instituicao', __name__, url_prefix='/instituicoes')
@@ -12,22 +12,48 @@ def index():
     return render_template('instituicoes/index.html', institutions=institutions)
 
 # Rota para criar uma nova instituição
-@institution_bp.route('/new', methods=["GET", "POST"])
+@institution_bp.route('/criar', methods=["GET", "POST"])
 def create():
     if request.method == "POST":
         nome = request.form["nome"]
         razao_social = request.form["razao_social"]
-        
-        # Verifica se tem valor
-        if nome and razao_social:
-            # Chama o construtor da classe Institution
-            new_institution = Institution(nome=nome, razao_social=razao_social)
-            
-            # Persiste no banco
-            repo.create(new_institution)
 
-            #mensagem flash em caso de sucesso
-            flash('Instituição criada com sucesso')
-        return redirect(url_for('instituicao.index'))
+        # Validação de preenchimento de dados.
+        if not nome or not razao_social:
+            flash("Preencha todos os campos", "error")
+            return redirect(url_for("instituicao.create"))
         
-    return render_template('instituicoes/create.html')
+        institution_new = Institution(nome=nome, razao_social=razao_social)
+        repo.create(institution_new)
+        flash("Instituição criada com sucesso!", "success")
+        return redirect(url_for('instituicao.index'))
+    
+    return render_template("instituicoes/create.html")
+
+
+# Rota que retorna uma instituição para edição.
+@institution_bp.route('/editar/<int:id>', methods=["GET", "POST"])
+def update(id):
+    get_by_id = repo.get_by_id_institution(id)
+    if request.method == "POST":
+        nome = request.form["nome"]
+        razao_social = request.form["razao_social"]
+
+         # Validação de preenchimento de dados.
+        if not nome or not razao_social:
+            flash("Preencha todos os campos", "error")
+            return redirect(url_for("instituicao.create"))
+        
+        institution_update = Institution(id=id, nome=nome, razao_social=razao_social)
+        repo.update(institution_update)
+        flash("Instituição atualizada com sucesso!", "success")
+        return redirect(url_for('instituicao.index'))
+    
+    return render_template("instituicoes/editar.html", instituicao=get_by_id)
+
+# Rota para deletar instituição.
+@institution_bp.route('/deletar/<int:id>', methods=["POST"])
+def delete(id):
+    repo.delete(id)
+    flash("Instituição deletada com sucesso", "success")
+    return redirect(url_for("instituicao.index"))
