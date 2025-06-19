@@ -6,6 +6,12 @@
 <div class="container text-center mt-4">
     <h2>Todas as Instituições</h2>
 
+    <div class="row align-items-center justify-content-end mb-2">
+        <div class="col-12 col-lg-2">
+            <a class="btn btn-success d-table mx-auto" href="{{ url_for('instituicao.create') }}">Criar Instituição</a>
+        </div>
+    </div>
+
     {% with messages = get_flashed_messages(category_filter=["success"]) %}
         {% if messages %}
             {% for message in messages %}
