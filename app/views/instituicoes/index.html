@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Instituições{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-4">
+    <h2>Todas as Instituições</h2>
+    {% for institution in institutions %}
+        <p>{{ institution.nome }} | {{ institution.razao_social }}</p>
+    {% endfor %}
+</div>
+{% endblock %}

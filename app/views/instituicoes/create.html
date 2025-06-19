@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Cadastrar Instituição{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-4">
+    <h2>Cadastrar nova Instituição</h2>
+    <form method="POST">
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome">
+            <label for="nome">Nome Instituição</label>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="form-control" id="razao_social" name="razao_social" placeholder="Razão Social">
+            <label for="razao_social">Razão Social</label>
+        </div>
+
+        <button type="submit" class="btn btn-lg btn-success mt-5">Cadastrar</button>
+    </form>
+</div>
+{% endblock %}
