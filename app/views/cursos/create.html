@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Cadastrar Curso{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-4">
+    <h2>Cadastrar novo Curso</h2>
+
+    <!-- Exibe mensagem de erro caso não preencha algum dos inputs -->
+    {% with messages = get_flashed_messages(category_filter=["error"]) %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-danger" role="alert">
+                    <span>{{ message }}</span>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form action="{{ url_for('curso.create') }}" method="POST">
+        <label for="nome_curso">Nome do Curso:</label>
+        <input type="text" name="nome_curso" id="nome_curso" required>
+
+        <label for="id_instituicao">Instituição:</label>
+        <select name="id_instituicao" id="id_instituicao" required>
+            <option value="">Selecione</option>
+            {% for inst in instituicoes %}
+                <option value="{{ inst.id }}">{{ inst.razao_social }}</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Cadastrar</button>
+    </form>
+</div>
+{% endblock %}

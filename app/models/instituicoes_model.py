@@ -1,4 +1,4 @@
-# Classe Institution
+# Classe Instituição
 class Institution:
     def __init__(self, id=None, nome=None, razao_social=None):
         self.id = id
