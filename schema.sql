@@ -1,7 +1,4 @@
 --SQL para criação das tabelas
-/*
-DROP TABLE cursos;
-*/
 
 CREATE TABLE IF NOT EXISTS instituicoes(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -14,4 +11,13 @@ CREATE TABLE IF NOT EXISTS cursos(
     nome_curso VARCHAR(150) NOT NULL,
     id_instituicao INTEGER NOT NULL,
     FOREIGN KEY (id_instituicao) REFERENCES instituicoes(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS turmas(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome_turma VARCHAR(150) NOT NULL,
+    curso_id INTEGER NOT NULL,
+    instituicao_id INTEGER NOT NULL,
+    FOREIGN KEY (curso_id) REFERENCES cursos(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (instituicao_id) REFERENCES instituicoes(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
