@@ -13,6 +13,15 @@ class CursosRepository:
             )
             conn.commit()
 
+    # método para buscar um curso
+    def buscar_curso(self, id):
+        with get_connection() as conn:
+            curso = conn.execute(
+                "SELECT * FROM cursos WHERE id = ?", (id,)
+            ).fetchone()
+
+            return curso
+
     #método para retornar todos os cursos com a razão social da instituição.
     def list_cursos(self):
         cursos = []
@@ -35,3 +44,21 @@ class CursosRepository:
                 cursos.append(curso)
 
         return cursos
+    
+    ## método atualizar curso.
+    def update(self, curso):
+        with get_connection() as conn:
+            conn.execute(
+                'UPDATE cursos SET nome_curso = ?, id_instituicao = ? WHERE id = ?',
+                (curso.nome_curso, curso.id_instituicao, curso.id)
+            )
+            conn.commit()
+
+    #método para deletar um curso.
+    def delete(self, id):
+        with get_connection() as conn:
+            conn.execute(
+                "DELETE FROM cursos WHERE id = ?",
+                (id,)
+            )
+            conn.commit()

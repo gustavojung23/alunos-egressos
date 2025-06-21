@@ -52,3 +52,14 @@ class InstitutionRepository:
                 'DELETE FROM instituicoes WHERE id = ?', (id,)
             )
             conn.commit()
+
+    def get_by_razao_social_institution(self, razao_social):
+        with get_connection() as conn:
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+            cursor.execute(
+                'SELECT id, nome, razao_social FROM instituicoes WHERE razao_social = ?',
+                (razao_social,)
+            )
+            row = cursor.fetchone()
+            return Institution(row['id'], row['nome'], row['razao_social']) if row else None

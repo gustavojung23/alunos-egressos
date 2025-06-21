@@ -16,6 +16,7 @@ def index():
     cursos = repo.list_cursos()
     return render_template('cursos/index.html', cursos=cursos)
 
+# controller para criação do curso.
 @curso_bp.route('/cadastrar', methods=["GET", "POST"])
 def create():
     if request.method == "POST":
@@ -32,5 +33,44 @@ def create():
         flash("Curso criado com sucesso!", "success")
         return redirect(url_for('curso.index'))
     
+    #lista de instituições cadastradas para serem selecionadas junto ao curso.
     instituicoes = repoInstitution.list_institutions()
     return render_template("cursos/create.html", instituicoes=instituicoes)
+
+#Rota para atualizar curso
+@curso_bp.route('/atualizar/curso/<int:id>', methods=["GET", "POST"])
+def update(id):
+    if request.method == 'POST':
+        nome_curso = request.form['nome_curso']
+        razao_social_instituicao = request.form['razao_social_instituicao']
+
+        # Buscar a instituição pelo razao_social
+        instituicao = repoInstitution.get_by_razao_social_institution(razao_social_instituicao)
+        if not instituicao:
+            flash('Instituição não encontrada!', 'error')
+            return redirect(url_for('curso.update', id=id))
+
+        # Atualizar o curso
+        curso = Curso(id=id, nome_curso=nome_curso, id_instituicao=int(instituicao.id))
+        repo.update(curso)
+
+        flash('Curso atualizado com sucesso!', 'success')
+        return redirect(url_for('curso.index'))
+
+    # método GET: buscar o curso e as instituicoes para o select
+    curso = repo.buscar_curso(id)
+    instituicoes = repoInstitution.list_institutions()
+    return render_template('cursos/editar.html', curso=curso, instituicoes=instituicoes)
+
+# Rota para listar um curso.
+@curso_bp.route('curso/<int:id>', methods=["GET"])
+def buscar_curso(id):
+    curso = repo.buscar_curso(id)
+    return render_template("cursos/curso.html", curso=curso)
+
+# Rota para deletar curso.
+@curso_bp.route('/deletar/<int:id>', methods=["POST"])
+def delete(id):
+    repo.delete(id)
+    flash("Curso deletado com sucesso", "success")
+    return redirect(url_for("curso.index"))

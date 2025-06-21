@@ -18,18 +18,21 @@
     {% endwith %}
 
     <form action="{{ url_for('curso.create') }}" method="POST">
-        <label for="nome_curso">Nome do Curso:</label>
-        <input type="text" name="nome_curso" id="nome_curso" required>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="nome_curso" name="nome_curso" placeholder="Nome" required>
+            <label for="nome_curso">Nome do Curso</label>
+        </div>
+        <div class="form-floating">
+            <select class="form-select" name="id_instituicao" id="id_instituicao" required>
+                <option value="">Instituição</option>
+                {% for inst in instituicoes %}
+                    <option value="{{ inst.id }}">{{ inst.razao_social }}</option>    
+                {% endfor %}
+            </select>
+            <label for="id_instituicao">Selecione a Instituição</label>
+        </div>
 
-        <label for="id_instituicao">Instituição:</label>
-        <select name="id_instituicao" id="id_instituicao" required>
-            <option value="">Selecione</option>
-            {% for inst in instituicoes %}
-                <option value="{{ inst.id }}">{{ inst.razao_social }}</option>
-            {% endfor %}
-        </select>
-
-        <button type="submit">Cadastrar</button>
+        <button type="submit" class="btn btn-lg btn-success mt-5">Cadastrar</button>
     </form>
 </div>
 {% endblock %}

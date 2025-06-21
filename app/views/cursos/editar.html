@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Editar Curso{% endblock %}
+
+{% block content %}
+    <div class="container text-center mt-4">
+        <form method="POST">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="nome_curso" name="nome_curso" value="{{ curso.nome_curso }}" placeholder="Nome" required>
+                <label for="nome_curso">Nome do Curso</label>
+            </div>
+            <div class="form-floating">
+                <select class="form-select" name="razao_social_instituicao" required>
+                    <option value="">Instituição</option>
+                    {% for inst in instituicoes %}
+                        <option value="{{ inst.razao_social }}" {% if inst.id == curso.id_instituicao %}selected{% endif %}">{{ inst.razao_social }}</option>    
+                    {% endfor %}
+                </select>
+                <label for="id_instituicao">Selecione a Instituição</label>
+            </div>
+
+            <button type="submit" class="btn btn-lg btn-success mt-5">Salvar</button>
+        </form>
+    </div>
+{% endblock %}
