@@ -1,9 +1,9 @@
 --SQL para criação das tabelas
 
-DROP TABLE alunos;
-DROP TABLE turmas;
-DROP TABLE cursos;
-DROP TABLE instituicoes;
+-- DROP TABLE alunos;
+-- DROP TABLE turmas;
+-- DROP TABLE cursos;
+-- DROP TABLE instituicoes;
 
 
 CREATE TABLE IF NOT EXISTS instituicoes(
