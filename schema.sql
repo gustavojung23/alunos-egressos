@@ -1,5 +1,10 @@
 --SQL para criação das tabelas
 
+-- DROP TABLE turmas;
+-- DROP TABLE cursos;
+-- DROP TABLE instituicoes;
+
+
 CREATE TABLE IF NOT EXISTS instituicoes(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nome VARCHAR(150) NOT NULL,

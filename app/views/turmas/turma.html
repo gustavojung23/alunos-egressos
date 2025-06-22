@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Turmas{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-4">
+    <h2>Turma - {{ turma.nome_turma }}</h2>
+
+    <div class="container mt-5">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Turma</th>
+                    <th scope="col">Curso</th>
+                    <th scope="col">Instituição</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">{{ turma.id }}</th>
+                    <td>{{ turma.nome_turma }}</td>
+                    <td>{{ turma.nome_curso }}</td>
+                    <td>{{ turma.razao_social }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <div class="row align-items-center justify-content-end">
+            <div class="col-auto">
+                <a href="{{ url_for('turma.update', id=turma.id) }}" class="btn btn-info mx-auto d-table">
+                    Editar
+                </a>
+            </div>
+            <div class="col-auto">
+                <form method="POST" action="{{ url_for('turma.delete', id=turma.id) }}" onsubmit="return confirm('Deseja deletar?')">
+                    <button class="btn btn-danger" type="submit">
+                        Deletar
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+</div>
+{% endblock %}

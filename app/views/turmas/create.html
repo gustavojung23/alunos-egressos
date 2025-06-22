@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Cadastrar Turmas{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-4">
+    <h2>Cadastrar nova Turma</h2>
+
+    <!-- Exibe mensagem de erro caso não preencha algum dos inputs -->
+    {% with messages = get_flashed_messages(category_filter=["error"]) %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-danger" role="alert">
+                    <span>{{ message }}</span>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="nome_turma" name="nome_turma" required placeholder="Ex.: Turma 2025/A">
+            <label for="nome_turma">Nome da Turma</label>
+        </div>
+        
+        <div class="form-floating mb-3">
+            <select class="form-select" id="instituicao_id" name="instituicao_id" required>
+                <option value="">Selecione a Instituição</option>
+                {% for inst in instituicoes %}
+                    <option value="{{ inst.id }}">{{ inst.razao_social }}</option>
+                {% endfor %}
+            </select>
+            <label for="instituicao_id">Instituição</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <select class="form-select" id="curso_id" name="curso_id" required>
+                <option value="" disabled selected>Selecione o Curso</option>
+                {% for curso in cursos %}
+                    <option value="{{ curso.id }}">{{ curso.nome_curso }} — {{ curso.razao_social_instituicao }}</option>
+                {% endfor %}
+            </select>
+            <label for="curso_id">Curso</label>
+        </div>
+        
+        <button type="submit" class="btn btn-lg btn-success">Cadastrar</button>
+    </form>
+</div>
+{% endblock %}

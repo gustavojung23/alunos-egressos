@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Editar Turma{% endblock %}
+
+{% block content %}
+    <div class="container text-center mt-4">
+        <form method="POST">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="nome_turma" name="nome_turma" value="{{ turma.nome_turma }}" placeholder="Nome" required>
+                <label for="nome_turma">Nome da Turma</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <select class="form-select" id="instituicao_id" name="instituicao_id" required>
+                    <option value="">Selecione a Instituição</option>
+                    {% for inst in instituicoes %}
+                        <option value="{{ inst.id }}">{{ inst.razao_social }}</option>
+                    {% endfor %}
+                </select>
+                <label for="instituicao_id">Instituição</label>
+            </div>
+
+            
+            <div class="form-floating">
+                <select class="form-select" id="curso_id" name="curso_id" required>
+                    <option value="">Selecione a Curso</option>
+                    {% for curso in cursos %}
+                        <option value="{{ curso.id }}">{{ curso.nome_curso }} — {{ curso.razao_social_instituicao }}</option>
+                    {% endfor %}
+                </select>
+                <label for="curso_id">Curso</label>
+            </div>
+
+            <button type="submit" class="btn btn-lg btn-success mt-5">Salvar</button>
+        </form>
+    </div>
+{% endblock %}

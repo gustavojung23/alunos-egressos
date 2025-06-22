@@ -12,7 +12,7 @@ def index():
     return render_template('instituicoes/index.html', institutions=institutions)
 
 # Rota para criar uma nova instituição
-@institution_bp.route('/criar', methods=["GET", "POST"])
+@institution_bp.route('/cadastrar', methods=["GET", "POST"])
 def create():
     if request.method == "POST":
         nome = request.form["nome"]
