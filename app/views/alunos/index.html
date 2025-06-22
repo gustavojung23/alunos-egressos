@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Alunos{% endblock %}
+{% block content %}
+<div class="container text-center mt-5">
+    <h2>Alunos Cadastrados</h2>
+    
+    <div class="row align-items-center justify-content-end mb-2">
+        <div class="col-12 col-lg-2">
+            <a class="btn btn-success d-table mx-auto" href="{{ url_for('aluno.create') }}">Cadastrar Aluno</a>
+        </div>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">CPF</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Email</th>
+                <th scope="col">Curso</th>
+                <th scope="col">Instituição</th>
+                <th scope="col">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for aluno in alunos %}
+            <tr>
+                <th scope="row">{{ aluno.cpf }}</th>
+                <td>{{ aluno.nome }}</td>
+                <td>{{ aluno.email }}</td>
+                <td>{{ aluno.nome_curso }}</td>
+                <td>{{ aluno.razao_social }}</td>
+                <td class="d-grid d-lg-flex gap-1 gap-lg-0 align-items-lg-center justify-content-lg-center">
+                    <a class="btn btn-info mx-lg-2" href="{{ url_for('aluno.update', cpf=aluno.cpf) }}">Editar</a>
+                    <form method="POST" action="{{ url_for('aluno.delete', cpf=aluno.cpf) }}" onsubmit="return confirm('Deseja deletar?')">
+                        <button class="btn btn-danger" type="submit">
+                            Deletar
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,8 +1,9 @@
 --SQL para criação das tabelas
 
--- DROP TABLE turmas;
--- DROP TABLE cursos;
--- DROP TABLE instituicoes;
+DROP TABLE alunos;
+DROP TABLE turmas;
+DROP TABLE cursos;
+DROP TABLE instituicoes;
 
 
 CREATE TABLE IF NOT EXISTS instituicoes(
@@ -24,5 +25,19 @@ CREATE TABLE IF NOT EXISTS turmas(
     curso_id INTEGER NOT NULL,
     instituicao_id INTEGER NOT NULL,
     FOREIGN KEY (curso_id) REFERENCES cursos(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (instituicao_id) REFERENCES instituicoes(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS alunos(
+    cpf VARCHAR(14) PRIMARY KEY NOT NULL UNIQUE,
+    nome VARCHAR(150) NOT NULL,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    telefone VARCHAR(15) UNIQUE,
+    situacao VARCHAR(20) NOT NULL,
+    curso_id INTEGER NOT NULL,
+    turma_id INTEGER NOT NULL,
+    instituicao_id INTEGER NOT NULL,
+    FOREIGN KEY (curso_id) REFERENCES cursos(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (turma_id) REFERENCES turmas(id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (instituicao_id) REFERENCES instituicoes(id) ON DELETE CASCADE ON UPDATE CASCADE
 );

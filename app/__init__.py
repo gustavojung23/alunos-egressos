@@ -5,6 +5,7 @@ from flask import Flask, render_template
 from app.controllers.instituicoes_controller import institution_bp
 from app.controllers.cursos_controller import curso_bp
 from app.controllers.turmas_controller import turma_bp
+from app.controllers.alunos_controller import aluno_bp
 
 load_dotenv()
 
@@ -20,6 +21,7 @@ def create_app():
     app.register_blueprint(institution_bp)
     app.register_blueprint(curso_bp)
     app.register_blueprint(turma_bp)
+    app.register_blueprint(aluno_bp)
 
     @app.route('/')
     def index():

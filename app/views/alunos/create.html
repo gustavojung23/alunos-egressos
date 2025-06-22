@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}Cadastrar Aluno{% endblock %}
+{% block content %}
+
+    <div class="container text-center mt-5">
+
+        <!-- Mensagens flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <h2>Cadastrar Aluno</h2>
+        <form method="POST">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome" required>
+                <label for="nome">Nome</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="cpf" name="cpf" maxlength="14" placeholder="CPF" required>
+                <label for="cpf">CPF</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                <label for="email">Email</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="telefone" name="telefone" placeholder="Telefone" maxlength="15" required>
+                <label for="telefone">Telefone</label>
+            </div>
+            <div class="form-floating mb-3">
+                <select id="situacao" class="form-select" name="situacao" required>
+                    <option value="" disabled selected>Selecione a Situação</option>
+                    <option value="Ativo">Ativo</option>
+                    <option value="Concluído">Concluído</option>
+                    <option value="Evasão">Evasão</option>
+                </select>
+                <label for="situacao">Situação</label>
+            </div>
+            <div class="form-floating mb-3">
+                <select id="instituicao_id" class="form-select" name="instituicao_id" required>
+                    <option value="" disabled selected>Instituição</option>
+                    {% for inst in instituicoes %}
+                        <option value="{{ inst.id }}">{{ inst.razao_social }}</option>
+                    {% endfor %}
+                </select>
+                <label for="instituicao_id">Instituição</label>
+            </div>
+            <div class="form-floating mb-3">
+                <select id="curso_id" class="form-select" name="curso_id" required>
+                    <option value="" disabled selected>Curso</option>
+                    {% for curso in cursos %}
+                        <option value="{{ curso.id }}">{{ curso.nome_curso }}</option>
+                    {% endfor %}
+                </select>
+                <label for="curso_id">Curso</label>
+            </div>
+            <div class="form-floating mb-3">
+                <select id="turma_id" class="form-select" name="turma_id" required>
+                    <option value="" disabled selected>Turma</option>
+                    {% for turma in turmas %}
+                        <option value="{{ turma.id }}">{{ turma.nome_turma }}</option>
+                    {% endfor %}
+                </select>
+                <label for="turma_id">Turma</label>
+            </div>
+
+            <button type="submit" class="btn btn-success">Cadastrar</button>
+        </form>
+
+    </div>
+
+{% endblock %}
