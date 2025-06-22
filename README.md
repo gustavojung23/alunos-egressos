@@ -51,12 +51,18 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 5. Execute o Banco de Dados
+### 5. Declare as variáveis de ambiente no arquivo .env.EXAMPLE
+```bash
+DB_NAME="" #nome do banco (string)
+SECRET_KEY="" #chave secreta para uso do flash() (string).
+```
+
+### 6. Execute o Banco de Dados
 ```bash
 python init_db.py
 ```
 
-### 6. Executar a aplicação
+### 7. Executar a aplicação
 ```bash
 python app.py
 ```
