@@ -51,7 +51,8 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 5. Declare as variáveis de ambiente no arquivo .env.EXAMPLE
+### 5. Declare as variáveis de ambiente
+- Em seu projeto crie o arquivo .env e declare as variáveis de ambiente conforme abaixo.
 ```bash
 DB_NAME="" #nome do banco (string)
 SECRET_KEY="" #chave secreta para uso do flash() (string).
