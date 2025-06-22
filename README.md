@@ -20,7 +20,7 @@ Nesta versão inicial, é possível cadastrar, editar, gerenciar e deletar:
 ## ⚙️ Como utilizar
 ### 1. Clonar o repositório
 ```bash
-git clone https://github.com/seu-usuario/sistema-alunos-egressos.git
+git clone https://github.com/gustavojung23/alunos-egressos.git
 cd sistema-alunos-egressos
 ```
 
